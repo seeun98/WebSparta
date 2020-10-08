@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function addMeat() {
+            let myHtml = '<li>고기</li>'
+            $("#myGogi").append(myHtml)
+        }
+
+        function addMyFriends() {
+            let myFriend = [
+                {'name': 'Harry', 'age': 20},
+                {'name': 'Potter', 'age': 21},
+                {'name': 'rohn', 'age': 22},
+                {'name': 'widsely', 'age': 23}
+            ]
+            $("#magicFriend").empty()
+            for (let i = 0; i < myFriend.length; i++) {
+                let name = myFriend[i]['name']
+                let myHtml = "<li>" + name + "</li>"
+                $("#magicFriend").append(myHtml)
+            }
+
+            //let myHtml = '<li>harry</li>'
+
+        }
+
+        function myTest() {
+            $.ajax({
+                url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+                type: "GET",
+                data: {},
+                success: function (response) {
+                    let data = response['RealtimeCityAir']['row']
+                    $("#test").empty()
+
+                    for (let i = 0; i < data.length; i++) {
+                        let pm = data[i]['PM10']
+                        let myHtml = "<li>" + pm + "</li>"
+                        $("#test").append(myHtml)
+                    }
+                }
+            })
+        }
+
+        function getCatImg() {
+            $.ajax({
+                url: ' https://api.thecatapi.com/v1/images/search',
+                type: 'GET',
+                data: {},
+                success: function (response) {
+                    let imgUrl = response[0]['url']
+                    $("#imgCat").attr("src",imgUrl)
+                }
+            })
+        }
+
+    </script>
+</head>
+<body>
+<h2>Ajax + jQuery + javascript 공부! </h2>
+<hr>
+<img src="#" id="imgCat">
+<button onclick="getCatImg()">나와라고양이</button>
+<button onclick="myTest()">서울 날씨는 어때요?</button>
+<ul id="test"></ul>
+<button id="myBtn" onclick="addMeat()">추가</button>
+<ul id="myGogi">
+    <li>고기</li>
+
+</ul>
+<hr>
+<button onclick="addMyFriends()">해리포터</button>
+<ol id="magicFriend">
+    <li>Harry</li>
+    <li>potter</li>
+    <li>rohn</li>
+    <li>widsely</li>
+
+</ol>
+</body>
+</html>

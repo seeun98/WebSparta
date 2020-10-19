@@ -1,0 +1,43 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function myPost(){
+            $.ajax({
+                //어디에, 어떻게
+                url: '/posttest', //?q 이런거 없음
+                type: 'POST',
+                data:{query:'harry'}, //data도 비어있지 않음 , request.form으로 받아가는
+
+                success : function(res){ //flask에 받아져 다시 오면 res로 들어감
+                    console.log(res)
+                }
+            })
+        }
+
+        function myTest(){
+            $.ajax({
+                //어디에
+                url : '/mytest?q=test_page',
+                //어떻게
+                type: 'GET',
+                data:{},
+                success : function(res){ //받아온 데이터 어떻게 쓰는지
+                    console.log(res)
+                }
+
+                }
+
+            )
+        }
+    </script>
+    <title>첫 Flask 프로젝트</title>
+</head>
+<body>
+<button onclick="myPost()">포스트테스트</button>
+<button onclick="myTest()">클릭</button>
+<h2>플라스크 서버를 만들었습니다!</h2>
+<hr>
+<img src="{{ url_for('static',filename = '성신여대.jpg') }}">
+</body>
